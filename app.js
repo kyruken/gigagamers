@@ -3,8 +3,15 @@ const session = require('express-session');
 const expressLayouts = require('express-ejs-layouts')
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy;
-
+const mongoose = require('mongoose');
 const app = express();
+
+const User = require('./models/user');
+
+const mongoDb = "mongodb+srv://kairuken:swagman@cluster0.2cnpqko.mongodb.net/?retryWrites=true&w=majority"
+mongoose.connect(mongoDb, {useUnifiedTopology: true, useNewUrlParser: true})
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "mongo connection error"));
 
 const directoryRouter = require('./routes/directory');
 app.set('view engine', 'ejs');
@@ -44,6 +51,15 @@ passport.deserializeUser(function (id, done) {
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.urlencoded({extended: false}));
+
+app.post(
+    "/",
+    passport.authenticate("local", {
+      successRedirect: "/",
+      failureRedirect: "/"
+    })
+  );
 
 app.use('/', directoryRouter);
 
