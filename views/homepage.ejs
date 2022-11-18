@@ -1,7 +1,7 @@
 <h2>Homepage</h2>
 <h3><%= locals.message %></h3>
 <% if (locals.user) {%>
-    <h1>WELCOME BACK <%= locals.user.userName%></h1>
+    <h1>WELCOME BACK <%= locals.user.username%></h1>
     <a href="/log-out">LOG OUT</a>
   <% } else { %>
     <a href="/log-in">Log in</a>

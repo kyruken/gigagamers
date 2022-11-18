@@ -3,6 +3,7 @@ const session = require('express-session');
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy;
 const router = express.Router();
+const bcrypt = require('bcryptjs');
 
 const userController = require('../controllers/userController');
 const messageController = require('../controllers/messageController');
@@ -25,10 +26,17 @@ passport.use(
             if (!user) {
                 return done(null, false, { message: "Incorrect username" });
             }
-            if (user.password !== password) {
-                return done(null, false, { message: "Incorrect password" });
-            }
-            return done(null, user);
+            bcrypt.compare(password, user.password, (err, res) => {
+                if (err) {
+                    return done(null, err);
+                }
+
+                if (res) {
+                    return done(null, user);
+                } else {
+                    return done(null, false, {message: "Incorrect password"});
+                }
+            })
         });
     })
 );
