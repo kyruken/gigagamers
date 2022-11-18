@@ -1,5 +1,6 @@
 <h1>please log in</h1>
-<form action="/" method="POST">
+<%= locals.message %>
+<form action="/log-in" method="POST">
   <label for="username">Username</label>
   <input name="username" placeholder="username" type="text" />
   <label for="password">Password</label>
