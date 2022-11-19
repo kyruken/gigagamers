@@ -3,6 +3,7 @@
 <% if (locals.user) {%>
     <h1>WELCOME BACK <%= locals.user.username%></h1>
     <a href="/log-out">LOG OUT</a>
+    <div><a href="/create-post">Create a new message</a></div>
   <% } else { %>
     <a href="/log-in">Log in</a>
     <a href="/sign-up">Sign up</a>
