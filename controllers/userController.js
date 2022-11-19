@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const {body, validationResults} = require('express-validator');
+const {body, check, validationResult} = require('express-validator');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 exports.get_user_form = (req, res) => {
@@ -22,8 +22,13 @@ exports.post_user_form = (req, res, next) => {
     body("password", "Password must not be empty")
     .trim()
     .isLength({min: 1, max: 16})
-    .escape()
 
+    const errors = validationResult(req);
+
+    console.log(errors);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({errors: errors.array()})
+    }
     bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
         if (err) return next(err);
 
