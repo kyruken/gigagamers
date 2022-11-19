@@ -16,8 +16,11 @@ const messageSchema = new mongoose.Schema({
     },
     timestamp: {
         type: Date,
-        required: true
     },
 })
 
-module.exports = ("Message", messageSchema);
+messageSchema.virtual('url').get(function() {
+    return `/post/${this._id}`;
+})
+
+module.exports = mongoose.model("Message", messageSchema);
