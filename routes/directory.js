@@ -99,6 +99,9 @@ router.get('/log-in', userController.get_user_login);
 router.get('/create-post', messageController.get_message_form);
 router.post('/create-post', messageController.post_message_form);
 
+//View a message and update a message
+router.get('/post/:id', messageController.get_message_detail);
+router.post('/post/:id', messageController.post_message_detail);
 
 
 module.exports = router;
