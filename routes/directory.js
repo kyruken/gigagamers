@@ -16,6 +16,7 @@ router.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 //We use passReqToCallback to get a req object into our callback so that we can
 //edit the req.session.messages back to an empty array.
 // otherwise: ["incorrect username", "incorrect username", etc.]
+
 passport.use(
     new LocalStrategy({passReqToCallback: true}, (req, username, password, done) => {
         User.findOne({ username: username }, (err, user) => {
@@ -54,6 +55,12 @@ passport.deserializeUser(function (id, done) {
 router.use(passport.initialize());
 router.use(passport.session());
 
+router.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    next();
+  });
+
+
 router.post(
     "/log-in",
     passport.authenticate("local", {
@@ -89,8 +96,8 @@ router.post('/sign-up', userController.post_user_form);
 router.get('/log-in', userController.get_user_login);
 
 //Creating a new message
-router.get('/message_form', messageController.get_message_form);
-router.post('/message_form', messageController.post_message_form);
+router.get('/create-post', messageController.get_message_form);
+router.post('/create-post', messageController.post_message_form);
 
 
 
