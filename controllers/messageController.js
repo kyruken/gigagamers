@@ -4,6 +4,9 @@ const message = require('../models/message');
 const Message = require('../models/message')
 const User = require('../models/user')
 
+const async = require('async');
+const user = require('../models/user');
+
 exports.get_message_form = (req, res) => {
     res.render('./messages/message_form');
 }
@@ -31,17 +34,37 @@ exports.post_message_form = (req, res, next) => {
         if(err) {
             return next(err);
         }
-        
-        res.redirect(newMessage.url);
+
+        res.redirect('/');
         
     })
 
 
 }
 
-exports.get_message_detail = (req, res) => {
-    res.send("get message page");
+exports.get_message_detail = (req, res, next) => {
 
+    async.parallel({
+        user(callback) {
+            User.where('message').equals(req.params.id).findOne().exec(callback);
+        },
+        message(callback) {
+            Message.findById(req.params.id).exec(callback);
+        },
+
+    }, (err, results) => {
+
+        if (err) {
+            return next(err);
+        }
+
+        res.render('./messages/message_detail', {
+            title: results.message.title,
+            //weird bug where you can't use the property "body" or else its bugged
+            description: results.message.body,  
+            username: results.user.username
+        })
+    })
 }
 
 exports.post_message_detail = (req, res) => {
