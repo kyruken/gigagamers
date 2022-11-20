@@ -1,4 +1,6 @@
+const { localsName } = require('ejs');
 const mongoose = require('mongoose');
+const message = require('../models/message');
 const Message = require('../models/message')
 const User = require('../models/user')
 
@@ -16,16 +18,24 @@ exports.post_message_form = (req, res, next) => {
     })
 
 
+    //If you change properties locally on models, you have to save
+    //before updating to db!!!!
+    const newUser = res.locals.currentUser;
+    newUser.message.push(newMessage);
+
+    newUser.save();
+
     newMessage.save();
 
-    User.findByIdAndUpdate(req.body.authorid, {message: newMessage}, (err, updatedUser) => {
+    User.findByIdAndUpdate(req.body.authorid, newUser, (err, updatedUser) => {
         if(err) {
             return next(err);
         }
-
+        
         res.redirect(newMessage.url);
         
     })
+
 
 }
 
