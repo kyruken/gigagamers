@@ -1,3 +1,4 @@
+const async = require('async');
 const express = require('express');
 const session = require('express-session');
 const passport = require('passport')
@@ -5,11 +6,19 @@ const LocalStrategy = require('passport-local').Strategy;
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 
+const Message = require('../models/message');
+
 const userController = require('../controllers/userController');
 const messageController = require('../controllers/messageController');
 
 
 const User = require('../models/user');
+
+//middleware function for setting LocalStrategy messages array to none
+const setMessagesToNone = function (req, res, next) {
+    req.session.messages = []
+    next();
+}
 
 router.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 
@@ -60,12 +69,12 @@ router.use((req, res, next) => {
     next();
   });
 
-
 router.post(
-    "/log-in",
+    "/log-in", (req, res, next) => setMessagesToNone(req, res, next),
     passport.authenticate("local", {
       successRedirect: "/",
       failureRedirect: "/log-in",
+      badRequestMessage: "Missing username or password",
       failureMessage: true
     })
   );
@@ -79,9 +88,24 @@ router.get("/log-out", (req, res, next) => {
     });
   });
 
+router.get('/', (req, res, next) => {
+    async.parallel({
+            posts(callback) {
+                Message.where('title')
+                .populate('author')
+                .exec(callback);
+            },
 
-router.get('/', (req, res) => {
-    res.render("homepage", {user: req.user});
+    }, (err, results) => {
+        if (err) {
+            return next(err);
+        }
+        res.render("homepage", {
+            posts: results.posts,
+            user: req.user
+        });
+
+    })
 });
 
 router.get('/log-out', (req, res) => {
