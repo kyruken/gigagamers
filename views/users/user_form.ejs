@@ -1,7 +1,8 @@
 <h2>Sign up</h2>
+<p><%= locals.error %></p>
 <form method="POST" action="">
     <label for="firstname">First Name: </label>
-    <input type="text" id="firstname" name="firstname">
+    <input type="text" name="firstname" id="firstname">
 
     <label for="lastname">Last Name: </label>
     <input type="text" id="lastname" name="lastname">
@@ -16,6 +17,6 @@
     <input name="confirmpassword" type="password" />
 
     <input type="hidden" id="membership" name="membership" value="false">
-    <button>Submit</button>
+    <button type="submit">Submit</button>
 
 </form>
