@@ -9,3 +9,13 @@
     <a href="/sign-up">Sign up</a>
 
     <% } %>
+<% for (let x = 0; x < posts.length; x++) { %>
+    <h3><%= posts[x].title %></h3>
+    <p><%= posts[x].body %></p> 
+    <div>
+      <p>Username: <%= posts[x].author.username %></p>
+      <p><%= posts[x].timestamp %></p>
+    </div>
+
+
+<% } %>
