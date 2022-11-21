@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const message = require('../models/message');
 const Message = require('../models/message')
 const User = require('../models/user')
+const {body, check, validationResult} = require('express-validator')
 
 const async = require('async');
 const user = require('../models/user');
@@ -11,36 +12,60 @@ exports.get_message_form = (req, res) => {
     res.render('./messages/message_form');
 }
 
-exports.post_message_form = (req, res, next) => {
+exports.post_message_form = [
+    
+    body('title', "title must not be empty")
+    .trim()
+    .isLength({min: 1, max: 50})
+    .escape(),
+    body('body', "body must not be empty")
+    .trim()
+    .isLength({min:1, max: 100})
+    .escape(),
 
-    const newMessage = new Message({
-        title: req.body.title,
-        body: req.body.body,
-        author: req.body.author,
-        date: new Date()
-    })
 
+    (req, res, next) => {
 
-    //If you change properties locally on models, you have to save
-    //before updating to db!!!!
-    const newUser = res.locals.currentUser;
-    newUser.message.push(newMessage);
+        const errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
+            // Build your resulting errors however you want! String, object, whatever - it works!
+            return `* ${msg} *`;
+          };
+    
+        const errors = validationResult(req).formatWith(errorFormatter);
 
-    newUser.save();
-
-    newMessage.save();
-
-    User.findByIdAndUpdate(req.body.authorid, newUser, (err, updatedUser) => {
-        if(err) {
-            return next(err);
+        if (!errors.isEmpty()) {
+            console.log("swaggyialsdlsad");
+            res.render('./messages/message_form', {error: errors.array()});
+            return;
         }
 
-        res.redirect('/');
-        
-    })
+        const newMessage = new Message({
+            title: req.body.title,
+            body: req.body.body,
+            author: req.body.author,
+            date: new Date()
+        })
 
 
+        //If you change properties locally on models, you have to save
+        //before updating to db!!!!
+        const newUser = res.locals.currentUser;
+        newUser.message.push(newMessage);
+
+        newUser.save();
+
+        newMessage.save();
+
+        User.findByIdAndUpdate(req.body.authorid, newUser, (err, updatedUser) => {
+            if(err) {
+                return next(err);
+            }
+
+            res.redirect('/');
+            
+        })
 }
+]
 
 exports.get_message_detail = (req, res, next) => {
 
