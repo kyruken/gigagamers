@@ -10,12 +10,19 @@
 
     <% } %>
 <% for (let x = 0; x < posts.length; x++) { %>
-    <h3><%= posts[x].title %></h3>
-    <p><%= posts[x].body %></p> 
-    <div>
-      <p>Username: <%= posts[x].author.username %></p>
-      <p><%= posts[x].timestamp %></p>
-    </div>
+    <a href="<%= posts[x].url%>">
+      <h3><%= posts[x].title %></h3>
+      <p><%= posts[x].body %></p>
+      <div>
+        <% if (locals.user) { %>
+          <p>Username: <%= posts[x].author.username %></p>
+          <p><%= posts[x].timestamp %></p>
+        <% } else { %>
+          <p>Anonymous user</p>
+          <p>Anonymous date</p>
+        <% } %>
+      </div>
+    </a>
 
 
 <% } %>
