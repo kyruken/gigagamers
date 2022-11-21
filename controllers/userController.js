@@ -22,6 +22,7 @@ exports.post_user_form = (req, res, next) => {
     body("password", "Password must not be empty")
     .trim()
     .isLength({min: 1, max: 16})
+    .escape()
 
     const errors = validationResult(req);
 
