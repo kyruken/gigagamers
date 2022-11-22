@@ -95,3 +95,55 @@ exports.get_message_detail = (req, res, next) => {
 exports.post_message_detail = (req, res) => {
     
 }
+
+exports.get_delete_message = (req, res) => {
+
+    async.parallel({
+        user(callback) {
+            User.where('message').equals(req.params.id).findOne().exec(callback);
+        },
+        message(callback) {
+            Message.findById(req.params.id).exec(callback);
+        },
+
+    }, (err, results) => {
+
+        if (err) {
+            return next(err);
+        }
+
+        res.render('./messages/message_delete', {
+            title: results.message.title,
+            //weird bug where you can't use the property "body" or else its bugged
+            description: results.message.body,  
+            username: results.user.username,
+            message: "Are you sure you want to delete this post?"
+        })
+    })
+
+}
+
+exports.post_delete_message = (req, res, next) => {
+
+
+    Message.where('_id').equals(req.params.id)
+    .exec((err, results) => {
+        if (res.locals.currentUser._id === results.author || res.locals.currentUser.admin === true) {
+            message.findByIdAndDelete(req.params.id, (err) => {
+                if (err) {
+                    return next(err);
+                }
+                res.redirect('/');
+            })
+        } else {
+            res.render('./messages/message_delete', {
+                title: results.message.title,
+                //weird bug where you can't use the property "body" or else its bugged
+                description: results.message.body,  
+                username: results.user.username,
+                message: "User is not admin or author. Can't delete post."
+            })
+        }
+    })
+    
+}

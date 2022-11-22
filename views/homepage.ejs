@@ -9,6 +9,7 @@
     <a href="/sign-up">Sign up</a>
 
     <% } %>
+
 <% for (let x = 0; x < posts.length; x++) { %>
     <a href="<%= posts[x].url%>">
       <h3><%= posts[x].title %></h3>
@@ -22,10 +23,8 @@
           <p>Anonymous date</p>
         <% } %>
         <% if (locals.user && locals.user.admin == true) { %>
-          <a href=''>Delete</a>
+          <a href='<%=posts[x].url%>/delete'>Delete</a>
         <% } %>
       </div>
     </a>
-
-
 <% } %>

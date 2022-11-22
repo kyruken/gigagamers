@@ -127,5 +127,9 @@ router.post('/create-post', messageController.post_message_form);
 router.get('/post/:id', messageController.get_message_detail);
 router.post('/post/:id', messageController.post_message_detail);
 
+//View a message and delete a message
+router.get('/post/:id/delete', messageController.get_delete_message);
+router.post('/post/:id/delete', messageController.post_delete_message);
+
 
 module.exports = router;

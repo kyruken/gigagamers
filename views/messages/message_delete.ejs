@@ -1,7 +1,11 @@
 <h2>Post by <%= username %></h2>
 
 <a href="/">Back</a>
+<h3><%= locals.message %></h3>
 <div>
     <h3><%= title %></h3>
     <p> <%= description %> </p>
 </div>
+<form method="POST">
+    <button>Delete</button>
+</form>

@@ -35,7 +35,6 @@ exports.post_user_form = [
         const errors = validationResult(req).formatWith(errorFormatter);
         
         if (!errors.isEmpty()) {
-            console.log("swaggyialsdlsad");
             res.render('./users/user_form', {error: errors.array()});
             return;
         }
