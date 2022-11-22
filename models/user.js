@@ -24,6 +24,9 @@ const userSchema = new mongoose.Schema({
     membershipstatus: {
         type: Boolean,
         required: true
+    },
+    admin: {
+        type: Boolean,
     }
 })
 

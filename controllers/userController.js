@@ -48,7 +48,8 @@ exports.post_user_form = [
                 lastname: req.body.lastname,
                 username: req.body.username,
                 password: hashedPassword,
-                membershipstatus: req.body.membership
+                membershipstatus: req.body.membership,
+                admin: req.body.admin == "on" ? true : false
             })
     
         newUser.save();
