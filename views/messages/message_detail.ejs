@@ -2,8 +2,9 @@
 
 <a href="/">Back</a>
 <div>
-    <h3><%= title %></h3>
-    <p> <%= description %> </p>
+    <h3><%= post.title %></h3>
+    <p> <%= post.description %> </p>
+    <p><%= post.date_formatted %> </p>
 </div>
 <% if (locals.currentUser) { %>
     <a href='<%=post.url%>/delete'>Delete</a>

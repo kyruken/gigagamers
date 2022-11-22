@@ -43,7 +43,7 @@ exports.post_message_form = [
             title: req.body.title,
             body: req.body.body,
             author: req.body.author,
-            date: new Date()
+            timestamp: req.body.timestamp
         })
 
 
@@ -60,10 +60,9 @@ exports.post_message_form = [
             if(err) {
                 return next(err);
             }
-
-            res.redirect('/');
             
         })
+        res.redirect('/');
 }
 ]
 
@@ -85,9 +84,6 @@ exports.get_message_detail = (req, res, next) => {
 
         res.render('./messages/message_detail', {
             post: results.message,
-            title: results.message.title,
-            //weird bug where you can't use the property "body" or else its bugged
-            description: results.message.body,  
             username: results.user.username
         })
     })

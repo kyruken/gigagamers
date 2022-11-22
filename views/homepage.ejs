@@ -17,7 +17,7 @@
       <div>
         <% if (locals.user) { %>
           <p>Username: <%= posts[x].author.username %></p>
-          <p><%= posts[x].timestamp %></p>
+          <p><%= posts[x].date_formatted %></p>
         <% } else { %>
           <p>Anonymous user</p>
           <p>Anonymous date</p>

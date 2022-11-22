@@ -7,6 +7,7 @@
     <label for="body">Body: </label>
     <input type="text" id="body" name="body">
 
+    <input type="hidden" id="timestamp" name="timestamp" value="<%=new Date()%>">
     <input type="hidden" id="author" name="author" value="<%= locals.currentUser._id %>">
 
     <button>Submit</button>
