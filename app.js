@@ -6,7 +6,7 @@ const app = express();
 
 const userController = require('./controllers/userController');
 
-const mongoDb = "mongodb+srv://kairuken:swagman@cluster0.2cnpqko.mongodb.net/?retryWrites=true&w=majority"
+const mongoDb = "mongodb+srv://kairuken:swagman@cluster0.2cnpqko.mongodb.net/user_library?retryWrites=true&w=majority"
 mongoose.connect(mongoDb, {useUnifiedTopology: true, useNewUrlParser: true})
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));
