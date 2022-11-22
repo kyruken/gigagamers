@@ -108,6 +108,18 @@ router.get('/', (req, res, next) => {
     })
 });
 
+router.post("/", (req, res, next) => {
+    if (res.locals.currentUser.admin === true) {
+        Message.findByIdAndDelete(req.body.postid, (err) => {
+            if (err) {
+                return next(err);
+            }
+            res.redirect('/');
+        })
+
+    }
+})
+
 router.get('/log-out', (req, res) => {
     res.render("homepage", {message: "Logged out"});
 });

@@ -23,7 +23,10 @@
           <p>Anonymous date</p>
         <% } %>
         <% if (locals.user && locals.user.admin == true) { %>
-          <a href='<%=posts[x].url%>/delete'>Delete</a>
+          <form method="POST">
+            <input type="hidden" name="postid" value="<%= posts[x]._id %>">
+            <button>Delete</button>
+        </form>
         <% } %>
       </div>
     </a>
