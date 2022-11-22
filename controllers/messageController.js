@@ -84,6 +84,7 @@ exports.get_message_detail = (req, res, next) => {
         }
 
         res.render('./messages/message_detail', {
+            post: results.message,
             title: results.message.title,
             //weird bug where you can't use the property "body" or else its bugged
             description: results.message.body,  
@@ -125,11 +126,25 @@ exports.get_delete_message = (req, res) => {
 
 exports.post_delete_message = (req, res, next) => {
 
+    async.parallel({
+        user(callback) {
+            User.where('message').equals(req.params.id).findOne().exec(callback);
+        },
+        message(callback) {
+            Message.findById(req.params.id).exec(callback);
+        },
 
-    Message.where('_id').equals(req.params.id)
-    .exec((err, results) => {
-        if (res.locals.currentUser._id === results.author || res.locals.currentUser.admin === true) {
-            message.findByIdAndDelete(req.params.id, (err) => {
+    }, (err, results) => {
+
+        if (err) {
+            return next(err);
+        }
+
+        console.log("author: ", results.user._id);
+        console.log("currentuserid: ", res.locals.currentUser._id);
+        //Make sure to use toString when comparing ._id 's otherwise comparison won't work
+        if (res.locals.currentUser._id.toString() === results.user._id.toString() || res.locals.currentUser.admin === true) {
+            Message.findByIdAndDelete(req.params.id, (err) => {
                 if (err) {
                     return next(err);
                 }
@@ -145,5 +160,5 @@ exports.post_delete_message = (req, res, next) => {
             })
         }
     })
-    
+
 }
