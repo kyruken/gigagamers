@@ -1,33 +1,45 @@
-<h2>Homepage</h2>
-<h3><%= locals.message %></h3>
-<% if (locals.user) {%>
-    <h1>WELCOME BACK <%= locals.user.username%></h1>
-    <a href="/log-out">LOG OUT</a>
-    <div><a href="/create-post">Create a new message</a></div>
-  <% } else { %>
-    <a href="/log-in">Log in</a>
-    <a href="/sign-up">Sign up</a>
 
-    <% } %>
+  <h3><%= locals.message %></h3>
+  <% if (locals.user) {%>
+      <h1>WELCOME BACK <%= locals.user.username%></h1>
+      <a href="/log-out">LOG OUT</a>
+      <div><a href="/create-post">Create a new message</a></div>
+    <% } else { %>
+      <nav>
+        <h2>GigaGamers</h2>
+        <div class="flex gap-1">
+          <a href="/log-in">Log in</a>
+          <a href="/sign-up">Sign up</a>
+        </div>
+      </nav>
+  
+      <% } %>
 
-<% for (let x = 0; x < posts.length; x++) { %>
-    <a href="<%= posts[x].url%>">
-      <h3><%= posts[x].title %></h3>
-      <p><%= posts[x].body %></p>
-      <div>
-        <% if (locals.user) { %>
-          <p>Username: <%= posts[x].author.username %></p>
-          <p><%= posts[x].date_formatted %></p>
-        <% } else { %>
-          <p>Anonymous user</p>
-          <p>Anonymous date</p>
-        <% } %>
-        <% if (locals.user && locals.user.admin == true) { %>
-          <form method="POST">
-            <input type="hidden" name="postid" value="<%= posts[x]._id %>">
-            <button>Delete</button>
-        </form>
-        <% } %>
-      </div>
-    </a>
-<% } %>
+<div class="homepage flex-column">
+      <h2>Homepage</h2>
+  <% for (let x = 0; x < posts.length; x++) { %>
+      <a href="<%= posts[x].url%>" class="post-container flex-column padding-lr-1 padding-tb-1">
+        <div class="border-bottom">
+          <h3><%= posts[x].title %></h3>
+          <p><%= posts[x].body %></p>
+        </div>
+        <div>
+          <% if (locals.user) { %>
+            <div class="flex jc-space-between">
+              <p>Username: <%= posts[x].author.username %></p>
+              <p><%= posts[x].date_formatted %></p>
+            </div>
+          <% } else { %>
+            <p>Anonymous user</p>
+            <p>Anonymous date</p>
+          <% } %>
+          <% if (locals.user && locals.user.admin == true) { %>
+            <form method="POST">
+              <input type="hidden" name="postid" value="<%= posts[x]._id %>">
+              <button>Delete</button>
+          </form>
+          <% } %>
+        </div>
+      </a>
+  <% } %>
+</div>

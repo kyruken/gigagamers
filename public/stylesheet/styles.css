@@ -1,0 +1,106 @@
+:root {
+    font-family: Open Sans, sans-serif, 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    box-sizing: border-box;
+
+    --text-color-primary: #fff;
+    --text-color-secondary: hsl(0, 15%, 75%);
+    --primary-bg-color: hsl(0, 3%, 21%);
+    --secondary-bg-color: hsl(0, 2%, 16%);
+    --third-bg-color: hsl(0, 2%, 12%);
+    --primary: 	#E6E6E6;
+    /* --primary-active: 
+    --primary-hover:  */
+    --secondary: #484b4a;
+    letter-spacing: 0.8px;
+}
+
+/* resets */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* ^ resets ^ */
+body {
+    background-color: var(--primary-bg-color);
+}
+
+
+
+h1, h2, h3, h4, h5, h6, p, a {
+    color: var(--text-color-primary);
+}
+
+h2 {
+    font-size: 2.5rem;
+}
+
+h3 {
+    font-size: 2.0rem;
+}
+
+nav {
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* custom classes */
+
+.flex {
+    display: flex;
+}
+
+.jc-space-between {
+    justify-content: space-between;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.gap-1 {
+    gap: 2.5rem;
+}
+
+.padding-lr-1 {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+}
+
+.padding-tb-1 {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.border-bottom {
+    border-bottom: 1.5px solid var(--text-color-primary);
+}
+
+/* ^ custom classes ^ */
+
+/* Homepage styles */
+
+.homepage {
+    border: 1px solid black;
+    align-items: center;
+    gap: 1rem;
+}
+
+.post-container {
+    background-color: var(--secondary-bg-color);
+    border: 1.8px solid black;
+    border-radius: 10px;
+    width: 50%;
+}
