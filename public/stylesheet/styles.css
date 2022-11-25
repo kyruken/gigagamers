@@ -25,6 +25,14 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0;
 }
 
+button {
+    background-color: none;
+    color: none;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
 a {
     text-decoration: none;
 }
@@ -41,7 +49,7 @@ h1, h2, h3, h4, h5, h6, p, a {
 }
 
 h2 {
-    font-size: 2.5rem;
+    font-size: 2.3rem;
 }
 
 h3 {
@@ -65,6 +73,10 @@ nav {
     justify-content: space-between;
 }
 
+.ai-center {
+    align-items: center;
+}
+
 .flex-column {
     display: flex;
     flex-direction: column;
@@ -79,11 +91,28 @@ nav {
     padding-right: 2.5rem;
 }
 
+.padding-lr-2 {
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+}
+
+.padding-lr-3 {
+    padding-left: 5rem;
+    padding-right: 5rem;
+}
+
+.padding-tb-0 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
 .padding-tb-1 {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
 }
 
+.margin-top-1 {
+    margin-top: 1.5rem;
+}
 .border-bottom {
     border-bottom: 1.5px solid var(--text-color-primary);
 }
@@ -103,4 +132,29 @@ nav {
     border: 1.8px solid black;
     border-radius: 10px;
     width: 50%;
+}
+
+button {
+    background-color: var(--secondary);
+    border-radius: 10px;
+    color: var(--primary);
+    border: 1.5px solid #000;
+    min-width: 10%;
+    padding: 0.8rem 1rem;
+    font-family: Open Sans, sans-serif, 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #525654;
+}
+
+.blue-button {
+    background-color: rgb(88, 101, 242);
+}
+
+.blue-button:hover {
+    background-color: rgb(58, 72, 231);
 }
