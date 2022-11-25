@@ -15,6 +15,16 @@
 }
 
 /* resets */
+
+/* without box-sizing, the input boxes overflow their containers */
+/* Width 100% doesn't take into account border, margin, padding */
+input[type="text"], input[type="password"] {
+    width: 100%; 
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -82,6 +92,9 @@ nav {
     flex-direction: column;
 }
 
+.text-align-center {
+    text-align: center;
+}
 .gap-1 {
     gap: 2.5rem;
 }
@@ -113,6 +126,11 @@ nav {
 .margin-top-1 {
     margin-top: 1.5rem;
 }
+
+.margin-bottom-0 {
+    margin-bottom: 1rem;
+}
+
 .border-bottom {
     border-bottom: 1.5px solid var(--text-color-primary);
 }
@@ -139,7 +157,6 @@ button {
     border-radius: 10px;
     color: var(--primary);
     border: 1.5px solid #000;
-    min-width: 10%;
     padding: 0.8rem 1rem;
     font-family: Open Sans, sans-serif, 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 1em;
@@ -157,4 +174,30 @@ button:hover {
 
 .blue-button:hover {
     background-color: rgb(58, 72, 231);
+}
+
+/* Form styles */
+
+.dark-box {
+    background-color: var(--secondary-bg-color);
+    border: 1.5px solid black;
+    border-radius: 10px;
+}
+
+.form-container {
+    text-align: center;
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+.input-field {
+    font-size: 16px;
+    height: 36px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1.5px solid black;
+}
+
+.form-control {
+    width: 100%;
 }

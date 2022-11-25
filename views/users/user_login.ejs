@@ -1,9 +1,14 @@
-<h1>please log in</h1>
+<a href="/">Back</a>
+<h1 class="text-align-center padding-tb-1">Login to GigaGamers</h1>
 <%= locals.message %>
-<form action="/log-in" method="POST">
-  <label for="username">Username</label>
-  <input name="username" placeholder="username" type="text" />
-  <label for="password">Password</label>
-  <input name="password" type="password" />
-  <button>Log In</button>
+<form action="/log-in" method="POST" class="dark-box form-container">
+  <div class="margin-top-1 margin-bottom-0 padding-lr-3">
+    <label for="username"></label>
+    <input name="username" placeholder="Username" type="text" class="input-field form-control"/>
+  </div>
+  <div class="margin-bottom-0 padding-lr-3">
+    <label for="password"></label>
+    <input name="password" placeholder="Password" type="password" class="input-field form-control"/>
+  </div>
+  <div class="margin-bottom-0 padding-lr-3"><button class="form-control">Log In</button></div>
 </form>
